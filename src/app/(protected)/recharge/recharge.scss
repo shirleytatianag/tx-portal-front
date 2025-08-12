@@ -1,9 +1,10 @@
 .wrapper-recharge {
+  background: #FFFFFF;
   height: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px;
+  padding: 30px;
   overflow: hidden;
 
   .recharge-header {
@@ -17,30 +18,76 @@
       font-weight: 600;
     }
 
-    .recharge {
-      height: 36px;
-      background-color: #008893;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      padding: 10px 12px;
+    .options-header {
+      width: 60%;
       display: flex;
-      gap: 6px;
-      align-items: center;
-      font-size: 14px;
+      gap: 20px;
 
-      &:hover {
-        opacity: 0.9;
+      .container-search {
+        flex: 1 1 auto;
+        position: relative;
+        //background: #FFFFFF;
+        //height: 42px;
+        //min-height: 42px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 12px;
+        border: 1px solid #dadada;
+        border-radius: 8px;
+
+        .search {
+          flex: 1 auto;
+          height: 100%;
+          outline: none;
+          color: #5C5C5C;
+          padding: 2px;
+          font-size: 14px;
+          border: none;
+        }
+
+
       }
+
+      .recharge {
+        background-color: #008893;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        padding: 12px 14px;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        font-size: 14px;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+
     }
   }
 
   .recharge-body {
+    position: relative;
     background: #FFFFFF;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     flex: 1 1 auto;
     gap: 16px;
     overflow: auto;
+
+    .btn-next {
+      border-radius: 50%;
+      background: #f6f3f4;
+      padding: 8px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
   }
 }

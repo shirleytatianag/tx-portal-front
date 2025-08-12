@@ -1,4 +1,4 @@
-import {LoginInterface, LoginResponse} from "@/app/login/login.interface";
+import {LoginInterface, LoginResponse} from "@/app/(protected-login)/login/login.interface";
 import api from "@/services/api";
 
 export const Auth = {

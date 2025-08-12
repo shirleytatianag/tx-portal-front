@@ -3,9 +3,7 @@
 import './main.scss';
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
-import {getItem} from "@/services/storage";
-import Image from "next/image";
-import logo from '@/assets/images/logo.png';
+import {getItem, removeAll} from "@/services/storage";
 import {CreditCard, LogOut} from "lucide-react"
 
 export default function ProtectedLayout({children,}: { children: React.ReactNode; }) {
@@ -26,11 +24,20 @@ export default function ProtectedLayout({children,}: { children: React.ReactNode
     return <p>Cargando...</p>;
   }
 
+  const handleLogout = () => {
+    removeAll()
+    router.push('/login');
+  }
+
   return <>
     <div className="wrapper-main">
       <div className="aside-main">
         <div className="aside-header">
-          <Image  width={48} height={48} src={logo} alt="Imagen que representa el logo"/>
+          <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mb-4">
+            <svg className="w-6 h-6 text-[#19949E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
           <div className="description-aside">
             <span>Bienvenido a</span>
             <span>TX-Portal</span>
@@ -43,7 +50,7 @@ export default function ProtectedLayout({children,}: { children: React.ReactNode
           </div>
         </div>
         <div className="aside-footer">
-          <div className="option-aside">
+          <div className="option-aside" onClick={handleLogout}>
             <LogOut className=" w-4 h-4 "/>
             <span>Cerrar sesión</span>
           </div>

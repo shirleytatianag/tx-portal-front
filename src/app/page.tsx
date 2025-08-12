@@ -1,6 +1,5 @@
+import {redirect} from "next/navigation";
 
 export default function Home() {
-  return (
-   <span>Hola</span>
-  );
+  redirect("/login");
 }
