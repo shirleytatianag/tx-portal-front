@@ -13,6 +13,35 @@ html {
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
+body {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #bebebe;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #efefef;
+  }
+
+  ::-webkit-scrollbar-track:hover,
+  ::-webkit-scrollbar-track:active {
+    background: #dfdfdf;
+  }
+}
+
 /* Sections
  * ========================================================================== */
 
@@ -99,7 +128,6 @@ a {
  */
 
 abbr[title] {
-  text-decoration: underline;
   text-decoration: underline dotted;
 }
 

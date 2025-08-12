@@ -42,10 +42,9 @@ export default function LoginPage() {
 
     if (res.token) {
       setItem("token", res.token);
-      router.push("/dashboard");
+      router.push("/recharge");
       console.log("✅ Login exitoso");
       setLoading(false);
-
     } else {
       setLoading(false);
     }
