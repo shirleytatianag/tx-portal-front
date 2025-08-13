@@ -1,8 +1,7 @@
 .voucher-container {
-  width: 100%;
   max-width: 28rem;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
+  margin-top: 8px;
+
 
   .voucher-card {
     background: linear-gradient(135deg, #fff, #e0f7fa);
@@ -10,18 +9,7 @@
     padding: 1.5rem;
     box-shadow: 0 10px 30px rgba(8, 145, 178, 0.1);
     position: relative;
-
-    &.completed {
-      border: 2px solid #10b981;
-    }
-
-    &.pending {
-      border: 2px solid #f59e0b;
-    }
-
-    &.failed {
-      border: 2px solid #ef4444;
-    }
+    border: 1px solid #bae6fd;
 
     .voucher-header {
       display: flex;
@@ -34,23 +22,36 @@
         align-items: center;
 
         .icon-box {
-          background: #008893;
-          color: white;
           padding: 0.5rem;
           border-radius: 0.75rem;
           font-size: 1.2rem;
+
+          &.completed {
+            background: #d1fae5;
+            color: #065f46;
+          }
+
+          &.pending {
+            background: #fef3c7;
+            color: #92400e;
+          }
+
+          &.failed {
+            background: #fee2e2;
+            color: #991b1b;
+          }
         }
 
         h2 {
           font-weight: bold;
           font-size: 1.2rem;
           margin: 0;
-          color: #008893;
+          color: #384461;
         }
 
         p {
           font-size: 0.85rem;
-          color: #008893;
+          color: #5C5C5C;
           margin: 0;
         }
       }
@@ -118,11 +119,13 @@
           font-size: 0.75rem;
           text-transform: uppercase;
           color: #475569;
+          margin-bottom: 2px;
         }
 
         .value {
-          font-weight: bold;
-          font-size: 1rem;
+          color: #4b4b4b;
+          font-weight: 500;
+          font-size: 14PX;
         }
       }
     }
@@ -152,14 +155,8 @@
           color: #475569;
         }
 
-        .code {
-          font-family: monospace;
-          background: #f1f5f9;
-          padding: 0.25rem 0.5rem;
-          border-radius: 0.25rem;
-        }
-
         .value {
+          color: #4b4b4b;
           font-size: 0.9rem;
         }
       }
@@ -167,7 +164,6 @@
 
     .voucher-footer {
       text-align: center;
-      border-top: 1px solid #bae6fd;
       margin-top: 1rem;
       padding-top: 0.75rem;
 

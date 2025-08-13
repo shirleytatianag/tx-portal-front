@@ -55,7 +55,7 @@ export default function ProtectedLayout({children,}: { children: React.ReactNode
             <LogOut className=" w-4 h-4 "/>
             <span>Cerrar sesión</span>
           </div>
-          <span className="text-footer">2025 - SG</span>
+          <span className="text-footer">© 2025 Portal Transaccional</span>
         </div>
       </div>
       <div className="content-main">{children}</div>

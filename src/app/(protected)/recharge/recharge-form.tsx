@@ -11,8 +11,9 @@ import Loader from "@/components/Loader";
 import {showToast} from "@/services/alert";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {Voucher} from "@/components/voucher";
+import {Building2, CreditCard, Smartphone} from "lucide-react";
 
-type Props = { setOpen: (v: boolean) => void, setRecharge: (v: boolean) => void };
+type Props = { setRecharge: (v: boolean) => void };
 
 
 const schema: ObjectSchema<RechargeSchema> = yup.object({
@@ -25,7 +26,7 @@ const schema: ObjectSchema<RechargeSchema> = yup.object({
     .positive('El monto debe ser mayor a cero').min(10000, 'El monto debe ser mayor a 10.000')
     .max(100000, 'El monto debe ser menor a 100.000'),
 })
-export default function RechargeForm({setOpen, setRecharge}: Props) {
+export default function RechargeForm({setRecharge}: Props) {
   const [operators, setOperators] = useState<Supplier[]>([])
   const [loading, setLoading] = useState(false);
   const [screen, setScreen] = useState(1);
@@ -47,8 +48,11 @@ export default function RechargeForm({setOpen, setRecharge}: Props) {
     reset,
     formState: {errors},
   } = useForm(
-    {resolver: yupResolver(schema),}
-  );
+    {
+      resolver: yupResolver(schema),
+      mode: "onChange",
+      reValidateMode: "onChange",
+    });
 
   useEffect(() => {
     getSuppliers();
@@ -78,9 +82,6 @@ export default function RechargeForm({setOpen, setRecharge}: Props) {
         showToast("Recarga realizada", "La recarga se realizó correctamente.",
           4000, "success");
         setLoading(false);
-        // setOpen(false);
-        // setRecharge(true);
-        reset();
         setResponse(response)
         setScreen(2);
       })
@@ -103,27 +104,36 @@ export default function RechargeForm({setOpen, setRecharge}: Props) {
 
   return <>
     {screen == 1 && (
-      <form className="space-y-4 flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
+        <span className="text-[16px] text-[#384461] font-bold ">Realizar recarga</span>
+        <span className="text-[#5C5C5C] text-[14px]">Ingresa los datos para completar tu recarga de saldo.</span>
         <div className="form-group">
           <label className="form-label">Número de celular</label>
-          <input
-            {...register("phone_number", {required: true})}
-            className={`form-input ${errors.phone_number && 'input-error'}`}
-            type="cel"
-            maxLength={10}
-            placeholder="Número de celular"
-          />
+          <div className={`input-icon form-input ${errors.phone_number && 'input-error'}`}>
+            <Smartphone className="h-4 w-4 text-gray-400"/>
+            <input
+              {...register("phone_number", {required: true})}
+              className="bg-transparent outline-0"
+              type="cel"
+              maxLength={10}
+              placeholder="Número de celular"
+            />
+          </div>
           {errors.phone_number && (<small className="error">{errors.phone_number.message}</small>)}
         </div>
         <div className="form-group">
           <label className="form-label">Monto de la recarga</label>
-          <input
-            {...register("amount", {required: true})}
-            className={`form-input ${errors.amount && 'input-error'}`}
-            type="text"
-            maxLength={6}
-            placeholder="Número de celular"
-          />
+          <div className={`input-icon form-input ${errors.phone_number && 'input-error'}`}>
+            <CreditCard className=" h-4 w-4 text-gray-400"/>
+            <input
+              {...register("amount", {required: true})}
+              className="bg-transparent outline-0"
+              type="text"
+              maxLength={6}
+              placeholder="Monto de la recarga"
+            />
+          </div>
+
           {errors.amount && (<small className="error">{errors.amount.message}</small>)}
         </div>
         <div className="form-group">
@@ -140,7 +150,10 @@ export default function RechargeForm({setOpen, setRecharge}: Props) {
                 }}
               >
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Selecciona un operador"/>
+                  <div className="flex items-center gap-2">
+                    <Building2 className="h-4 w-4 text-gray-400"/>
+                    <SelectValue placeholder="Selecciona tu operador"/>
+                  </div>
                 </SelectTrigger>
                 <SelectContent className="w-full">
                   {operators.map((op) => (
@@ -153,7 +166,7 @@ export default function RechargeForm({setOpen, setRecharge}: Props) {
             )}
           />
           {errors.operator_id && (
-            <small className="error">{errors.operator_id.id.message}</small>
+            <small className="error">{errors.operator_id.id?.message}</small>
           )}
         </div>
         <div className="mt-2.5 flex justify-end gap-2">

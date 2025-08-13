@@ -3,6 +3,7 @@
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {getItem} from "@/services/storage";
+import Loader from "@/components/Loader";
 
 export default function ProtectedLoginLayout({children}: { children: React.ReactNode; }) {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function ProtectedLoginLayout({children}: { children: React.React
   }, [router]);
 
   if (loading) {
-    return <p>Cargando...</p>;
+    return <Loader/>;
   }
 
   return (

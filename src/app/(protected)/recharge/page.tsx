@@ -3,32 +3,44 @@
 import './recharge.scss'
 import {Badge} from "@/components/ui/badge"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table"
-import {ArrowLeft, ArrowRight, CheckCircle, Clock, Globe, Plus, Search, XCircle} from "lucide-react"
+import {ArrowLeft, ArrowRight, Building2, CheckCircle, Clock, Plus, Search, XCircle} from "lucide-react"
 import {useEffect, useState} from "react"
 import {RechargeResponse} from "@/app/(protected)/recharge/recharge.interface";
 import {Recharge} from "@/services/recharge";
 import Loader from "@/components/Loader";
 import Modal from "@/components/modal";
 import RechargeForm from "@/app/(protected)/recharge/recharge-form";
+import {Voucher} from '@/components/voucher'
 
 
 export default function RechargePage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [open, setOpen] = useState(false);
+  const [openVoucher, setOpenVoucher] = useState(false);
   const [recharge, setRecharge] = useState(false);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [isPageable, setIsPageable] = useState(false);
   const [recharges, setRecharges] = useState<RechargeResponse[]>([])
   const [loading, setLoading] = useState(false);
+  const [rechargeItem, setRechargeItem] = useState({
+    recharge_id: "",
+    phone_number: "",
+    operator_name: "",
+    amount: 0,
+    status: "SUCCESS",
+    puntored_transaction_id: "",
+    ticket: "",
+    created_at: ""
+  });
 
   useEffect(() => {
-      setLoading(true);
-      getRecharges(page);
+    setLoading(true);
+    getRecharges(page);
   }, [page, recharge]);
 
   const nextPage = () => {
-    if (page < (totalPages -1)) setPage((prev) => prev + 1)
+    if (page < (totalPages - 1)) setPage((prev) => prev + 1)
   }
 
   const prevPage = () => {
@@ -89,6 +101,26 @@ export default function RechargePage() {
     )
   }
 
+  const getClassOperator = (operatorName: string) => {
+    switch (operatorName) {
+      case 'Claro':
+        return 'text-red-800';
+      case 'Movistar':
+        return 'text-blue-800';
+      case 'Tigo':
+        return 'text-yellow-800';
+      case 'wom':
+        return 'text-purple-800';
+      default:
+        return 'text-[#5C5C5C]';
+    }
+  }
+
+  const handleOpenVoucher = (recharge: RechargeResponse) => {
+    setRechargeItem(recharge);
+    setOpenVoucher(true);
+  }
+
   const filteredData = recharges.filter((item) => {
     return item.phone_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.operator_name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -130,7 +162,8 @@ export default function RechargePage() {
           <TableBody>
             {filteredData.map((item) => {
               return (
-                <TableRow key={item.recharge_id} className="hover:bg-gray-50 transition-colors">
+                <TableRow key={item.recharge_id} className="hover:bg-gray-50 transition-colors cursor-pointer"
+                          onClick={() => handleOpenVoucher(item)}>
                   <TableCell>
                     <div className="space-y-1">
                       <div className="font-medium text-[#5C5C5C]">{formatter.format(new Date(item.created_at))}</div>
@@ -138,18 +171,19 @@ export default function RechargePage() {
                   </TableCell>
                   <TableCell>
                     <div
-                      className="font-mono text-sm bg-gray-100 px-2 py-1 rounded  text-[#5C5C5C]">{item.phone_number}</div>
+                      className="text-sm  px-2 py-1 rounded  text-[#5C5C5C]">{item.phone_number}</div>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center space-x-2">
                       <div className="p-1 bg-gray-100 rounded">
-                        <Globe className="w-4 h-4 text-gray-600"/>
+                        <Building2 className={`w-4 h-4 ${getClassOperator(item.operator_name)}`}/>
                       </div>
-                      <span className="text-sm text-[#5C5C5C] font-medium">{item.operator_name}</span>
+                      <span
+                        className={`font-medium text-sm ${getClassOperator(item.operator_name)}`}>{item.operator_name}</span>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <div className="font-semibold text-sm text-[#5C5C5C]">${item.amount.toFixed(2)}</div>
+                    <div className="font-medium text-sm text-[#5C5C5C]">${item.amount.toFixed(2)}</div>
                   </TableCell>
                   <TableCell>{getStatusBadge(item.status)}</TableCell>
                   <TableCell>
@@ -186,8 +220,13 @@ export default function RechargePage() {
         }
       </div>
     </div>
-    <Modal open={open} onOpenChange={setOpen} title="Realizar recarga" description="Dinos a quién, cuánto y con qué operador.">
-      <RechargeForm setOpen={setOpen} setRecharge={setRecharge}/>
+    <Modal open={open} onOpenChange={setOpen}>
+      <RechargeForm setRecharge={setRecharge}/>
+    </Modal>
+    <Modal open={openVoucher} onOpenChange={setOpenVoucher}>
+      <Voucher phoneNumber={rechargeItem.phone_number} operatorName={rechargeItem.operator_name}
+               amount={rechargeItem.amount}
+               status={rechargeItem.status} ticket={rechargeItem.ticket} createdAt={rechargeItem.created_at}/>
     </Modal>
   </>
 }

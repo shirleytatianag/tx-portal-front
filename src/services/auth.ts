@@ -7,7 +7,6 @@ export const Auth = {
       const { data } = await api.post<LoginResponse>("/auth/login", payload);
       return data;
     } catch (error: any) {
-      console.log(error)
       return {
         message: error.response?.data?.message || "Credenciales inválidas",
       };
