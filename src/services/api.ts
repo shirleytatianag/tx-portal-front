@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getItem} from "@/services/storage";
+import {getItem, removeAll} from "@/services/storage";
 import {showToast} from "@/services/alert";
 
 const api = axios.create({
@@ -26,14 +26,11 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log(error)
     if (error.response && error.response.status === 401) {
       showToast("Sesión expirada", "Por favor, inicia sesión nuevamente.",
         2000, "warning")
-      console.error("Unauthorized access - redirecting to login");
-      // setTimeout(() => {
+      removeAll()
       window.location.href = "/login";
-      // }, 2000);
     }
     return Promise.reject(error);
   }

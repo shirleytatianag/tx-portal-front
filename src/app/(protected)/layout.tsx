@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {getItem, removeAll} from "@/services/storage";
 import {CreditCard, LogOut} from "lucide-react"
+import Loader from "@/components/Loader";
 
 export default function ProtectedLayout({children,}: { children: React.ReactNode; }) {
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function ProtectedLayout({children,}: { children: React.ReactNode
   }, [router]);
 
   if (loading) {
-    return <p>Cargando...</p>;
+    return <Loader/>;
   }
 
   const handleLogout = () => {
