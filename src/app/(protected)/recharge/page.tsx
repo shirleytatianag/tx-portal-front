@@ -60,6 +60,7 @@ export default function RechargePage() {
       setTotalPages(data.totalPages)
       setIsPageable(data.totalElements > data.size);
     } catch (error) {
+      console.log("Error al obtener las recargas:", error);
       setLoading(false);
     }
   }
