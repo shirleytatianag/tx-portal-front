@@ -39,6 +39,20 @@ Asegúrate de tener instalado en tu máquina:
     yarn install
     ```
 ----------
+
+## 🌍 Configuración de variables de entorno
+
+Este proyecto utiliza archivos `.env` para manejar las variables de entorno.
+
+### Crear archivo de entorno
+Renombra el archivo de ejemplo `.env.example` a `.env.local` o `.env.development` según tu preferencia.
+
+Desarrollo local → .env.local o .env.development (usado con npm run dev)
+
+Producción → .env.production (usado con npm run build && npm run start)
+
+----------
+
 ## ▶️ Ejecutar en desarrollo
 Inicia el servidor de desarrollo:
 

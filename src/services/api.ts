@@ -2,16 +2,21 @@ import axios from "axios";
 import {getItem, removeAll} from "@/services/storage";
 import {showToast} from "@/services/alert";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+if (!API_URL) {
+  throw new Error("No se ha definido NEXT_PUBLIC_API_URL en el archivo de entorno");
+}
+
 const api = axios.create({
-  baseURL: "http://localhost:8009/app",
+  baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 api.interceptors.request.use((config) => {
-  // @ts-ignore
-  if (config.baseURL.includes('auth')) {
+  if (config.baseURL && config.baseURL.includes('auth')) {
     return config;
   }
   const token = getItem('token');
