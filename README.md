@@ -1,8 +1,11 @@
+
 # 🌐 Frontend - TX-Portal (React)
 
 ----------
+
 Frontend para un portal transaccional integral, desarrollado con React para gestionar recargas móviles, consumir servicios del backend y ofrecer una experiencia de usuario ágil y amigable.
 Este proyecto está desarrollado con **[Next.js](https://nextjs.org/)** y **React**, utilizando el **App Router** y herramientas modernas para el desarrollo frontend.
+
 ----------
 
 ## 📋 Requisitos previos
@@ -102,6 +105,16 @@ o con yarn:
 ```bash
 yarn start
 ```
+
+----------
+
+## 🌍 Deployment en Producción
+
+Este proyecto está desplegado en **Vercel** y disponible públicamente en la siguiente URL:
+
+🔗 **[https://tx-portal-front.vercel.app/login](https://tx-portal-front.vercel.app/login)**
+
+Puedes acceder directamente para probar la aplicación en el entorno de producción.
 
 ----------
 
