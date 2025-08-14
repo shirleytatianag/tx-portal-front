@@ -7,14 +7,11 @@ import {ObjectSchema} from "yup";
 import {RechargeRequest, RechargeSchema, Supplier} from "@/app/(protected)/recharge/recharge.interface";
 import {Recharge} from "@/services/recharge";
 import {useEffect, useState} from "react";
-import Loader from "@/components/Loader";
+import Loader from "@/components/loader";
 import {showToast} from "@/services/alert";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {Voucher} from "@/components/voucher";
+import {Voucher} from "@/app/(protected)/recharge/components/Voucher/Voucher";
 import {Building2, CreditCard, Smartphone} from "lucide-react";
-
-type Props = { setRecharge: (v: boolean) => void };
-
 
 const schema: ObjectSchema<RechargeSchema> = yup.object({
   phone_number: yup.string().required('El número de celular es obligatorio').matches(/^3\d{9}$/, "El número de teléfono debe tener 10 dígitos y comenzar con 3"),
@@ -26,7 +23,7 @@ const schema: ObjectSchema<RechargeSchema> = yup.object({
     .positive('El monto debe ser mayor a cero').min(10000, 'El monto debe ser mayor a 10.000')
     .max(100000, 'El monto debe ser menor a 100.000'),
 })
-export default function RechargeForm({setRecharge}: Props) {
+export default function RechargeForm() {
   const [operators, setOperators] = useState<Supplier[]>([])
   const [loading, setLoading] = useState(false);
   const [screen, setScreen] = useState(1);
@@ -82,7 +79,7 @@ export default function RechargeForm({setRecharge}: Props) {
         showToast("Recarga realizada", "La recarga se realizó correctamente.",
           4000, "success");
         setLoading(false);
-        setResponse(response)
+        setResponse(response);
         setScreen(2);
       })
       .catch((error) => {

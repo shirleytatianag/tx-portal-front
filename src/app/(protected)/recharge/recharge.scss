@@ -26,9 +26,6 @@
       .container-search {
         flex: 1 1 auto;
         position: relative;
-        //background: #FFFFFF;
-        //height: 42px;
-        //min-height: 42px;
         display: flex;
         align-items: center;
         gap: 8px;
@@ -81,13 +78,18 @@
 
     .btn-next {
       border-radius: 50%;
-      background: #f6f3f4;
+      background: #eae7e8;
       padding: 8px;
       cursor: pointer;
 
       &:hover {
         opacity: 0.8;
       }
+    }
+
+    button[disabled]{
+      pointer-events: none;
+      opacity: 0.5;
     }
   }
 }

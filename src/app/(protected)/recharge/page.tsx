@@ -7,17 +7,16 @@ import {ArrowLeft, ArrowRight, Building2, CheckCircle, Clock, Plus, Search, XCir
 import {useEffect, useState} from "react"
 import {RechargeResponse} from "@/app/(protected)/recharge/recharge.interface";
 import {Recharge} from "@/services/recharge";
-import Loader from "@/components/Loader";
+import Loader from "@/components/loader";
 import Modal from "@/components/modal";
-import RechargeForm from "@/app/(protected)/recharge/recharge-form";
-import {Voucher} from '@/components/voucher'
+import RechargeForm from "@/app/(protected)/recharge/components/RechargeForm/RechargeForm";
+import {Voucher} from '@/app/(protected)/recharge/components/Voucher/Voucher'
 
 
 export default function RechargePage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [open, setOpen] = useState(false);
   const [openVoucher, setOpenVoucher] = useState(false);
-  const [recharge, setRecharge] = useState(false);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [isPageable, setIsPageable] = useState(false);
@@ -35,9 +34,11 @@ export default function RechargePage() {
   });
 
   useEffect(() => {
-    setLoading(true);
-    getRecharges(page);
-  }, [page, recharge]);
+    if (!open) {
+      setLoading(true);
+      getRecharges(page);
+    }
+  }, [page, open]);
 
   const nextPage = () => {
     if (page < (totalPages - 1)) setPage((prev) => prev + 1)
@@ -212,7 +213,7 @@ export default function RechargePage() {
               <span className="self-center text-xs text-[#5C5C5C]">
                 Página {page + 1} de {totalPages}
               </span>
-              <button className="btn-next" onClick={nextPage} disabled={page === totalPages}>
+              <button className="btn-next" onClick={nextPage} disabled={(page + 1) === totalPages}>
                 <ArrowRight className="w-4 h-4 text-gray-600"/>
               </button>
             </div>
@@ -221,7 +222,7 @@ export default function RechargePage() {
       </div>
     </div>
     <Modal open={open} onOpenChange={setOpen}>
-      <RechargeForm setRecharge={setRecharge}/>
+      <RechargeForm/>
     </Modal>
     <Modal open={openVoucher} onOpenChange={setOpenVoucher}>
       <Voucher phoneNumber={rechargeItem.phone_number} operatorName={rechargeItem.operator_name}

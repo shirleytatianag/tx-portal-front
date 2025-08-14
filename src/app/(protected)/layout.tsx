@@ -5,7 +5,7 @@ import React, {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {getItem, removeAll} from "@/services/storage";
 import {CreditCard, LogOut} from "lucide-react"
-import Loader from "@/components/Loader";
+import Loader from "@/components/loader";
 
 export default function ProtectedLayout({children,}: { children: React.ReactNode; }) {
   const router = useRouter();

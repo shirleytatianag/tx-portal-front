@@ -1,6 +1,6 @@
 "use client"
 
-import "../assets/styles/scss/components/_voucher.scss"
+import "../../../../../assets/styles/scss/components/_voucher.scss"
 import {Building2, Calendar, CheckCircle, Clock, Phone, Ticket, XCircle} from "lucide-react"
 
 interface VoucherProps {
