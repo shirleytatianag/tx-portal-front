@@ -105,6 +105,20 @@ o con yarn:
 ```bash
 yarn start
 ```
+----------
+
+## 🧪 Pruebas
+Para ejecutar las pruebas unitarias, utiliza:
+
+```bash
+npm test
+```
+o con yarn:
+
+```bash
+yarn test
+```
+
 
 ----------
 
