@@ -42,7 +42,6 @@ export default function RechargeForm() {
     register,
     control,
     handleSubmit,
-    reset,
     formState: {errors},
   } = useForm(
     {
@@ -54,12 +53,6 @@ export default function RechargeForm() {
   useEffect(() => {
     getSuppliers();
   }, []);
-
-  useEffect(() => {
-    if (!open) {
-      reset()
-    }
-  }, [open, reset])
 
   if (loading) {
     return <Loader height={"h-80"}/>;
